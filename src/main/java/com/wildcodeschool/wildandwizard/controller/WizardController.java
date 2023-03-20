@@ -37,7 +37,6 @@ public class WizardController {
     @GetMapping("/wizard/register")
     public String getRegister(Model out,
                               @RequestParam Long idWizard) {
-
         Optional<Wizard> optionalWizard = wizardRepository.findById(idWizard);
         Wizard wizard = new Wizard();
         if (optionalWizard.isPresent()) {

@@ -4,11 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import java.sql.Date;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Wizard {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +25,24 @@ public class Wizard {
     private String biography;
     private boolean muggle;
 
+    @ManyToMany
+    @JoinTable(name = "wizard_course",
+        joinColumns = @JoinColumn(name = "wizard_id"),
+        inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courses = new ArrayList<>();
+
+// getter
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+// setter
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     public Wizard() {
+      
     }
 
     public Long getId() {
